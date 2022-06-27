@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import axiosInstance from "../network/axiosInstance";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
@@ -10,7 +9,6 @@ export default function Movies() {
   const location = useLocation();
   const [keyword, setKeyword] = useState("");
   useEffect(() => {
-    console.log(location, "ssssssss");
     location.state ? setKeyword(location.state.keyword) : setKeyword("");
     if (keyword) {
       axiosInstance

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 
@@ -33,7 +33,7 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active" to="#">
+                <Link className="nav-link active" to="/fav">
                   Favourites
                 </Link>
               </li>
