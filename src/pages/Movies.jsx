@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
-import axiosInstance from "../network/axiosInstance";
-
+import { useSelector, useDispatch } from "react-redux";
+import getMoviesArray from "../store/actions/moviesAction";
 export default function Movies() {
-  const [movies, setMovies] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const location = useLocation();
   const [keyword, setKeyword] = useState("");
+
+  const movieArray = useSelector((state) => state.movies.moviesArray.results);
+  const dispatch = useDispatch();
   useEffect(() => {
     location.state ? setKeyword(location.state.keyword) : setKeyword("");
-    if (keyword) {
-      axiosInstance
-        .get(`/search/movie`, { params: { query: keyword, page: pageNum } })
-        .then((response) => {
-          setMovies(response.data.results);
-          console.log(response.data);
-        });
-    } else {
-      axiosInstance
-        .get("/movie/top_rated", { params: { page: pageNum } })
-        .then((response) => {
-          setMovies(response.data.results);
-        });
-    }
-  }, [pageNum, keyword, location]);
+  }, [location.state]);
+  useEffect(() => {
+    dispatch(
+      getMoviesArray({
+        page: pageNum,
+        query: keyword,
+      })
+    );
+  }, [pageNum, keyword, dispatch]);
+
   const nextPage = () => {
     let pageNumber;
     pageNumber = pageNum;
@@ -46,7 +43,7 @@ export default function Movies() {
   return (
     <div className="container ">
       <div className="row p-5 m-4">
-        {movies.map((movie, index) => (
+        {movieArray?.map((movie, index) => (
           <div key={index} className="col-4 p-2">
             <MovieCard movie={movie} />
           </div>
