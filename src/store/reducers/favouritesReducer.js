@@ -1,6 +1,5 @@
 const INTIAL_STATE = {
   favouriteMovies: [],
-  deletedMovie: {},
 };
 
 export default function addToFavouritesReducer(state = INTIAL_STATE, action) {
@@ -12,9 +11,12 @@ export default function addToFavouritesReducer(state = INTIAL_STATE, action) {
       };
     case "REMOVE_FROM_FAVOURITES":
       const deletedMovie = action.payload;
-      return state.favouriteMovies.filter(
-        (movie) => movie.id !== deletedMovie.id
-      );
+      return {
+        ...state,
+        favouriteMovies: state.favouriteMovies.filter(
+          (movie) => movie.id !== deletedMovie.id
+        ),
+      };
     default:
       return state;
   }

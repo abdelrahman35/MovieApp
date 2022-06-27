@@ -1,7 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToFavourites } from "../store/actions/favouritesAction";
+import {
+  addToFavourites,
+  removeFromFavourites,
+} from "../store/actions/favouritesAction";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 export default function MovieCard(props) {
@@ -13,10 +16,14 @@ export default function MovieCard(props) {
     (state) => state.favouritesReducer.favouriteMovies
   );
 
+  const removeFromFav = () => {
+    dispatch(removeFromFavourites(props.movie));
+  };
+
   return (
     <div>
       {favMovies?.find((m) => m.id === props.movie.id) ? (
-        <AiFillHeart />
+        <AiFillHeart onClick={removeFromFav} />
       ) : (
         <AiOutlineHeart onClick={addToFav} />
       )}

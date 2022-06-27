@@ -4,3 +4,10 @@ export const addToFavourites = (payload) => {
     payload,
   };
 };
+
+export const removeFromFavourites = (payload) => {
+  return {
+    type: "REMOVE_FROM_FAVOURITES",
+    payload,
+  };
+};

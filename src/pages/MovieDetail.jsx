@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../network/axiosInstance";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import GoBackButton from "../components/GoBackButton";
 
 export default function MovieDetail() {
   const [details, setDetails] = useState({});
@@ -19,11 +20,7 @@ export default function MovieDetail() {
   }, [params.id]);
   return (
     <div className="container mt-5">
-      <div className="">
-        <button onClick={() => history.goBack()} className="btn btn-dark">
-          Go Back
-        </button>
-      </div>
+      <GoBackButton></GoBackButton>
       <div className="row mt-2">
         <div className="col-3">
           <img
